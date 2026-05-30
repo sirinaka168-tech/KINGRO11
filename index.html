@@ -961,6 +961,60 @@
     font-size: 12px;
   }
 
+  /* ============ FALLING LEAVES ============ */
+  .leaf {
+    position: fixed;
+    top: -6vh;
+    z-index: 40;
+    pointer-events: none;
+    user-select: none;
+    will-change: transform;
+    animation: leafFall linear forwards;
+    filter: drop-shadow(0 2px 2px rgba(58,42,26,0.2));
+  }
+  @keyframes leafFall {
+    0%   { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0; }
+    8%   { opacity: 0.95; }
+    100% { transform: translateX(var(--drift, 60px)) translateY(112vh) rotate(560deg); opacity: 0.9; }
+  }
+
+  /* ============ BGM MUSIC BUTTON ============ */
+  .music-btn {
+    position: fixed;
+    bottom: 22px; right: 22px;
+    z-index: 60;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.55);
+    background: linear-gradient(135deg, #d4a544, #a07a2e);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-gold), inset 0 1px 0 rgba(255,255,255,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .music-btn:hover { transform: scale(1.08); }
+  .music-btn:active { transform: scale(0.96); }
+  .music-btn.playing::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid rgba(201,160,74,0.55);
+    animation: musicRing 1.7s ease-out infinite;
+  }
+  @keyframes musicRing {
+    0%   { transform: scale(1);   opacity: 0.7; }
+    100% { transform: scale(1.55); opacity: 0; }
+  }
+  .music-btn.playing i { animation: musicBob 0.9s ease-in-out infinite; }
+  @keyframes musicBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .leaf, .hero-mascot, .hero-ground img, .hero-pattern, .orb, .spark { animation: none !important; }
+  }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width: 768px) {
     .topnav .container { padding: 12px 18px; }
@@ -1428,16 +1482,71 @@
 
     <div class="foot-bottom">
       © 2026 RO-King 5.0 — Private Server (Fan Project) ·
-      ไม่ได้สังกัด Gravity / Asiasoft · เพื่อการศึกษาและเล่นในกลุ่มเพื่อนเท่านั้น
+      ไม่ได้สังกัด Gravity / Asiasoft · เพื่อการศึกษาและเล่นในกลุ่มเพื่อนเท่านั้น<br>
+      เพลง: <a href="https://incompetech.com/" target="_blank" rel="noopener">"Folk Round" — Kevin MacLeod</a> ·
+      <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>
     </div>
   </div>
 </footer>
 
+<!-- ============ BGM + MUSIC TOGGLE ============ -->
+<audio id="bgm" src="assets/audio/bgm.mp3" loop preload="auto"></audio>
+<button class="music-btn" id="musicBtn" aria-label="เปิด/ปิดเพลง" title="เปิด/ปิดเพลง">
+  <i class="fa-solid fa-volume-xmark"></i>
+</button>
+
 <script>
+  /* mobile nav */
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
   hamburger.addEventListener('click', () => navLinks.classList.toggle('mobile-open'));
   navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('mobile-open')));
+
+  /* ---- BGM music control ---- */
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+  bgm.volume = 0.45;
+  let playing = false;
+
+  function syncBtn() {
+    musicBtn.classList.toggle('playing', playing);
+    musicBtn.innerHTML = playing
+      ? '<i class="fa-solid fa-music"></i>'
+      : '<i class="fa-solid fa-volume-xmark"></i>';
+  }
+  function play()  { bgm.play().then(() => { playing = true;  syncBtn(); }).catch(() => {}); }
+  function pause() { bgm.pause();        playing = false; syncBtn(); }
+
+  musicBtn.addEventListener('click', () => playing ? pause() : play());
+
+  /* try to start on the first interaction anywhere (browsers block autoplay-with-sound) */
+  function firstPlay(e) {
+    if (e.target.closest('#musicBtn')) return;       // let the button handle its own clicks
+    play();
+    document.removeEventListener('pointerdown', firstPlay);
+  }
+  document.addEventListener('pointerdown', firstPlay);
+  syncBtn();
+
+  /* ---- falling leaves ---- */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    const leaves = ['🍁', '🍂', '🍃'];
+    function spawnLeaf() {
+      const el = document.createElement('span');
+      el.className = 'leaf';
+      el.textContent = leaves[(Math.random() * leaves.length) | 0];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.fontSize = (14 + Math.random() * 20) + 'px';
+      const dur = 7 + Math.random() * 7;
+      el.style.animationDuration = dur + 's';
+      el.style.setProperty('--drift', (Math.random() * 200 - 100) + 'px');
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), dur * 1000);
+    }
+    setInterval(spawnLeaf, 850);
+    for (let i = 0; i < 5; i++) setTimeout(spawnLeaf, i * 400);   // seed a few right away
+  }
 </script>
 
 </body>
