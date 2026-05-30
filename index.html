@@ -135,6 +135,30 @@
   }
   .hero .container { position: relative; z-index: 1; }
 
+  /* ---- faded cute-monster wallpaper behind the hero (shows on mobile too) ---- */
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.10;
+    image-rendering: pixelated;
+    background-image:
+      url('assets/monsters/poring.png'),
+      url('assets/monsters/angeling.png'),
+      url('assets/monsters/lunatic.png');
+    background-repeat: repeat, repeat, repeat;
+    background-size: 130px, 150px, 120px;
+    background-position: 0 0, 65px 78px, 35px 150px;
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+    animation: patternDrift 40s linear infinite;
+  }
+  @keyframes patternDrift {
+    from { background-position: 0 0, 65px 78px, 35px 150px; }
+    to   { background-position: 130px 0, 195px 78px, 155px 150px; }
+  }
+
   /* ---- hero decorative sky: glow orbs + twinkling lights ---- */
   .hero-sky { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
   .orb {
@@ -987,6 +1011,8 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="home">
+  <!-- faded cute-monster wallpaper -->
+  <div class="hero-pattern" aria-hidden="true"></div>
   <!-- decorative sky: glow orbs + twinkling fairy lights -->
   <div class="hero-sky" aria-hidden="true">
     <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
