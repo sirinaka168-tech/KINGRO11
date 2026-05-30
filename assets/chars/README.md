@@ -1,48 +1,34 @@
-# รูปตัวละคร (Character Sprites)
+# รูปตัวละครอาชีพ (Job Sprites)
 
-วางรูปตัวละคร Ragnarok ลงในโฟลเดอร์นี้ตามชื่อไฟล์ด้านล่าง
-เว็บจะดึงขึ้นมาแสดงให้อัตโนมัติ — **ถ้ายังไม่มีรูป จะแสดงไอคอนทองแทน (ไม่มีรูปแตก)**
+ไฟล์ในโฟลเดอร์นี้คือ **sprite อาชีพ Ragnarok จริง** (GIF ขยับได้ ทั้งชาย-หญิง)
+ดึงมาจาก kRO job sprite list ของ [nn.ai4rei.net](https://nn.ai4rei.net/dev/npclist/)
 
----
-
-## รูปการ์ดอาชีพ (section "อาชีพ")
-
-แนะนำ: PNG พื้นหลังโปร่ง (transparent), แนวตั้ง, ~120×120px ขึ้นไป
+ใช้ในเว็บ 2 จุด:
+- **section "อาชีพ"** — การ์ด 13 อาชีพ
+- **section "ตัวละครในตำนาน"** — ตัวละครเด่น 4 ตัว (ใช้ sprite อาชีพชุดเดียวกัน)
 
 | ไฟล์ | อาชีพ |
 |---|---|
-| `knight.png`      | Knight |
-| `crusader.png`    | Crusader |
-| `wizard.png`      | Wizard |
-| `sage.png`        | Sage |
-| `hunter.png`      | Hunter |
-| `bard.png`        | Bard / Dancer |
-| `priest.png`      | Priest |
-| `monk.png`        | Monk |
-| `assassin.png`    | Assassin |
-| `rogue.png`       | Rogue |
-| `blacksmith.png`  | Blacksmith |
-| `alchemist.png`   | Alchemist |
-| `supernovice.png` | Super Novice |
+| `knight.gif` `crusader.gif` | Swordman 2nd |
+| `wizard.gif` `sage.gif` | Mage 2nd |
+| `hunter.gif` `bard.gif` | Archer 2nd |
+| `priest.gif` `monk.gif` | Acolyte 2nd |
+| `assassin.gif` `rogue.gif` | Thief 2nd |
+| `blacksmith.gif` `alchemist.gif` | Merchant 2nd |
+| `supernovice.gif` | Special |
 
-## รูปตัวละครเด่น (section "ตัวละครในตำนาน")
-
-แนะนำ: PNG พื้นหลังโปร่ง, แนวตั้ง, ~300×340px ขึ้นไป (ตัวเต็ม)
-
-| ไฟล์ | ตัวละคร |
-|---|---|
-| `showcase-knight.png`   | Lord Knight |
-| `showcase-wizard.png`   | High Wizard |
-| `showcase-priest.png`   | High Priest |
-| `showcase-assassin.png` | Assassin Cross |
+> รูปมอนสเตอร์/บอส MVP อยู่ที่ [`../monsters/`](../monsters/)
 
 ---
 
-## หารูปได้จากไหน?
+## อยากเปลี่ยนรูปเอง?
 
-- **Sprite ในเกมจริง:** แตก sprite จาก kRO ด้วย *GRF Editor* / *ActOR2* แล้ว export เป็น PNG
-- **Sprite สำเร็จรูป:** ค้นในฟอรั่ม rAthena / Hercules section "Graphic Releases"
-- **Official artwork:** ภาพ official ของแต่ละจ๊อบ (ระวังเรื่องลิขสิทธิ์ ใช้เฉพาะเซิร์ฟส่วนตัว/ไม่พาณิชย์)
+วางไฟล์ทับชื่อเดิมได้เลย (PNG/GIF พื้นโปร่ง) — เว็บตั้ง `image-rendering: pixelated`
+ไว้แล้ว ภาพ pixel art จะคมไม่เบลอ ถ้าไฟล์หาย เว็บจะ fallback เป็นไอคอนทองอัตโนมัติ
 
-> เคล็ดลับ: sprite RO เป็น pixel art — เว็บตั้ง `image-rendering: pixelated`
-> ไว้แล้ว ภาพจะคมไม่เบลอแม้ขยาย
+**แหล่ง sprite เพิ่มเติม:**
+- [nn.ai4rei.net](https://nn.ai4rei.net/dev/npclist/) — job/NPC sprite list (kRO)
+- [Divine-Pride](https://www.divine-pride.net/) — มอนสเตอร์/ไอเทม
+- rAthena / Hercules forum — "Job Sprites" / "Graphic Releases"
+
+> ⚠️ ลิขสิทธิ์ของ Gravity — ใช้เฉพาะเซิร์ฟส่วนตัว/ไม่พาณิชย์เท่านั้น

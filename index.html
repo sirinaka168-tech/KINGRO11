@@ -135,6 +135,27 @@
   }
   .hero .container { position: relative; z-index: 1; }
 
+  /* floating RO mascots in the hero background */
+  .hero-mascot {
+    position: absolute;
+    z-index: 0;
+    width: 76px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 6px 8px rgba(58,42,26,0.25));
+    opacity: 0.92;
+    pointer-events: none;
+    animation: floaty 4s ease-in-out infinite;
+  }
+  .hero-mascot.m1 { top: 90px;  left: 5%;  width: 70px; animation-delay: 0s;   }
+  .hero-mascot.m2 { top: 220px; left: 11%; width: 56px; animation-delay: 0.8s; }
+  .hero-mascot.m3 { top: 70px;  right: 6%; width: 80px; animation-delay: 0.4s; }
+  .hero-mascot.m4 { top: 240px; right: 12%; width: 60px; animation-delay: 1.2s; }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50%      { transform: translateY(-14px) rotate(2deg); }
+  }
+  @media (max-width: 900px) { .hero-mascot { display: none; } }
+
   .episode-badge {
     display: inline-flex;
     align-items: center;
@@ -499,37 +520,46 @@
     transform: translateY(-3px);
     box-shadow: var(--shadow-gold);
   }
+  /* RO sprite "stage" — rounded panel that holds the animated job sprite.
+     The <i> icon underneath is the fallback if the sprite file is missing. */
   .class-card .class-ico {
     position: relative;
-    width: 84px;
-    height: 84px;
-    margin: 0 auto 12px;
-    background: radial-gradient(circle at 50% 35%, var(--accent-gold-light), var(--accent-gold-dark));
-    border-radius: 50%;
+    width: 100%;
+    height: 108px;
+    margin: 0 auto 14px;
+    background:
+      radial-gradient(ellipse 75% 60% at 50% 88%, rgba(201,160,74,0.30), transparent 70%),
+      linear-gradient(180deg, #fff8eb 0%, #ead6b8 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(58,42,26,0.10);
+  }
+  .class-card .class-ico > i {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
     font-size: 30px;
-    box-shadow: 0 4px 12px -4px var(--accent-gold), inset 0 2px 6px rgba(255,255,255,0.4);
-    overflow: hidden;
+    color: var(--accent-gold-dark);
+    opacity: 0.5;
   }
-  .class-card:hover .class-ico { box-shadow: 0 8px 20px -4px var(--accent-gold), inset 0 2px 6px rgba(255,255,255,0.4); }
-  /* RO character sprite — sits on top of the icon; if the file is missing,
-     onerror hides it and the gold icon underneath shows through. */
+  /* animated RO character sprite; onerror removes it so the icon shows through */
   .class-card .job-sprite {
     position: absolute;
     inset: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
     object-fit: contain;
     object-position: center bottom;
-    padding: 6px;
+    padding: 8px 6px 4px;
     image-rendering: pixelated;          /* keep RO sprites crisp */
     filter: drop-shadow(0 3px 4px rgba(58,42,26,0.35));
     transition: transform 0.25s;
   }
-  .class-card:hover .job-sprite { transform: scale(1.12) translateY(-2px); }
+  .class-card:hover .job-sprite { transform: translateY(-3px) scale(1.06); }
   .class-card h4 {
     font-family: 'Cinzel', serif;
     font-size: 15px;
@@ -648,6 +678,85 @@
     color: var(--text-soft);
     line-height: 1.55;
   }
+
+  /* ============ MVP BOSSES ============ */
+  .mvp { background: linear-gradient(180deg, var(--bg-cream-2) 0%, var(--bg-cream) 100%); position: relative; }
+  .mvp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 18px;
+  }
+  .mvp-card {
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 90%, rgba(176,48,48,0.10), transparent 70%),
+      linear-gradient(180deg, var(--bg-paper) 0%, var(--bg-cream-2) 100%);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 16px 12px 16px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.25s;
+    overflow: hidden;
+  }
+  .mvp-card.boss { border-color: rgba(176,48,48,0.45); }
+  .mvp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px -12px rgba(58,42,26,0.3);
+    border-color: var(--accent-gold);
+  }
+  .mvp-card .mvp-stage {
+    position: relative;
+    height: 130px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .mvp-card .mvp-stage::after {           /* ground shadow under the sprite */
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 50%;
+    transform: translateX(-50%);
+    width: 70%; height: 14px;
+    background: radial-gradient(ellipse, rgba(58,42,26,0.25), transparent 70%);
+    z-index: 0;
+  }
+  .mvp-card .mvp-stage img {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    max-height: 130px;
+    object-fit: contain;
+    object-position: center bottom;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 5px 6px rgba(58,42,26,0.4));
+    transition: transform 0.3s;
+  }
+  .mvp-card:hover .mvp-stage img { transform: scale(1.1) translateY(-4px); }
+  .mvp-card .mvp-badge {
+    position: absolute;
+    top: 10px; right: 10px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, #c0392b, var(--accent-red));
+    padding: 3px 9px;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px -2px rgba(176,48,48,0.6);
+    z-index: 2;
+  }
+  .mvp-card .mvp-badge.mini { background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); box-shadow: none; }
+  .mvp-card h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .mvp-card .mvp-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; }
 
   /* ============ NEWS ============ */
   .news { background: var(--bg-cream); }
@@ -822,6 +931,7 @@
       <a href="#features">เซิร์ฟเวอร์</a>
       <a href="#heroes">ตัวละคร</a>
       <a href="#classes">อาชีพ</a>
+      <a href="#mvp">บอส MVP</a>
       <a href="#news">ข่าวสาร</a>
       <a href="#download">ดาวน์โหลด</a>
       <a href="#donate">โดเนท</a>
@@ -832,6 +942,10 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="home">
+  <img class="hero-mascot m1" src="assets/monsters/poring.png" alt="" aria-hidden="true">
+  <img class="hero-mascot m2" src="assets/monsters/drops.png" alt="" aria-hidden="true">
+  <img class="hero-mascot m3" src="assets/monsters/poporing.png" alt="" aria-hidden="true">
+  <img class="hero-mascot m4" src="assets/monsters/goldenthiefbug.png" alt="" aria-hidden="true">
   <div class="container">
     <div class="episode-badge">
       <i class="fa-solid fa-star"></i> Ragnarok Online · Episode 5.0
@@ -970,7 +1084,7 @@
       <div class="hero-char">
         <div class="portrait">
           <span class="ph-ico"><i class="fa-solid fa-shield-halved"></i></span>
-          <img src="assets/chars/showcase-knight.png" alt="Lord Knight" loading="lazy" onerror="this.remove()">
+          <img src="assets/chars/knight.gif" alt="Lord Knight" loading="lazy" onerror="this.remove()">
         </div>
         <span class="role-tag">Tank · Melee</span>
         <h4>Lord Knight</h4>
@@ -980,7 +1094,7 @@
       <div class="hero-char">
         <div class="portrait">
           <span class="ph-ico"><i class="fa-solid fa-hat-wizard"></i></span>
-          <img src="assets/chars/showcase-wizard.png" alt="High Wizard" loading="lazy" onerror="this.remove()">
+          <img src="assets/chars/wizard.gif" alt="High Wizard" loading="lazy" onerror="this.remove()">
         </div>
         <span class="role-tag red">Magic · DPS</span>
         <h4>High Wizard</h4>
@@ -990,7 +1104,7 @@
       <div class="hero-char">
         <div class="portrait">
           <span class="ph-ico"><i class="fa-solid fa-staff-snake"></i></span>
-          <img src="assets/chars/showcase-priest.png" alt="High Priest" loading="lazy" onerror="this.remove()">
+          <img src="assets/chars/priest.gif" alt="High Priest" loading="lazy" onerror="this.remove()">
         </div>
         <span class="role-tag">Support · Heal</span>
         <h4>High Priest</h4>
@@ -1000,7 +1114,7 @@
       <div class="hero-char">
         <div class="portrait">
           <span class="ph-ico"><i class="fa-solid fa-khanda"></i></span>
-          <img src="assets/chars/showcase-assassin.png" alt="Assassin Cross" loading="lazy" onerror="this.remove()">
+          <img src="assets/chars/assassin.gif" alt="Assassin Cross" loading="lazy" onerror="this.remove()">
         </div>
         <span class="role-tag red">Burst · Crit</span>
         <h4>Assassin Cross</h4>
@@ -1020,19 +1134,45 @@
     </div>
 
     <div class="class-grid">
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-shield"></i><img class="job-sprite" src="assets/chars/knight.png" alt="Knight" loading="lazy" onerror="this.remove()"></div><h4>Knight</h4><div class="sub">Swordman 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-cross"></i><img class="job-sprite" src="assets/chars/crusader.png" alt="Crusader" loading="lazy" onerror="this.remove()"></div><h4>Crusader</h4><div class="sub">Swordman 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-fire"></i><img class="job-sprite" src="assets/chars/wizard.png" alt="Wizard" loading="lazy" onerror="this.remove()"></div><h4>Wizard</h4><div class="sub">Mage 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-bolt"></i><img class="job-sprite" src="assets/chars/sage.png" alt="Sage" loading="lazy" onerror="this.remove()"></div><h4>Sage</h4><div class="sub">Mage 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-feather"></i><img class="job-sprite" src="assets/chars/hunter.png" alt="Hunter" loading="lazy" onerror="this.remove()"></div><h4>Hunter</h4><div class="sub">Archer 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-music"></i><img class="job-sprite" src="assets/chars/bard.png" alt="Bard / Dancer" loading="lazy" onerror="this.remove()"></div><h4>Bard / Dancer</h4><div class="sub">Archer 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-heart-pulse"></i><img class="job-sprite" src="assets/chars/priest.png" alt="Priest" loading="lazy" onerror="this.remove()"></div><h4>Priest</h4><div class="sub">Acolyte 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-hand-fist"></i><img class="job-sprite" src="assets/chars/monk.png" alt="Monk" loading="lazy" onerror="this.remove()"></div><h4>Monk</h4><div class="sub">Acolyte 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-mask"></i><img class="job-sprite" src="assets/chars/assassin.png" alt="Assassin" loading="lazy" onerror="this.remove()"></div><h4>Assassin</h4><div class="sub">Thief 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-user-secret"></i><img class="job-sprite" src="assets/chars/rogue.png" alt="Rogue" loading="lazy" onerror="this.remove()"></div><h4>Rogue</h4><div class="sub">Thief 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-screwdriver-wrench"></i><img class="job-sprite" src="assets/chars/blacksmith.png" alt="Blacksmith" loading="lazy" onerror="this.remove()"></div><h4>Blacksmith</h4><div class="sub">Merchant 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-flask"></i><img class="job-sprite" src="assets/chars/alchemist.png" alt="Alchemist" loading="lazy" onerror="this.remove()"></div><h4>Alchemist</h4><div class="sub">Merchant 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-baby"></i><img class="job-sprite" src="assets/chars/supernovice.png" alt="Super Novice" loading="lazy" onerror="this.remove()"></div><h4>Super Novice</h4><div class="sub">Special</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-shield"></i><img class="job-sprite" src="assets/chars/knight.gif" alt="Knight" loading="lazy" onerror="this.remove()"></div><h4>Knight</h4><div class="sub">Swordman 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-cross"></i><img class="job-sprite" src="assets/chars/crusader.gif" alt="Crusader" loading="lazy" onerror="this.remove()"></div><h4>Crusader</h4><div class="sub">Swordman 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-fire"></i><img class="job-sprite" src="assets/chars/wizard.gif" alt="Wizard" loading="lazy" onerror="this.remove()"></div><h4>Wizard</h4><div class="sub">Mage 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-bolt"></i><img class="job-sprite" src="assets/chars/sage.gif" alt="Sage" loading="lazy" onerror="this.remove()"></div><h4>Sage</h4><div class="sub">Mage 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-feather"></i><img class="job-sprite" src="assets/chars/hunter.gif" alt="Hunter" loading="lazy" onerror="this.remove()"></div><h4>Hunter</h4><div class="sub">Archer 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-music"></i><img class="job-sprite" src="assets/chars/bard.gif" alt="Bard / Dancer" loading="lazy" onerror="this.remove()"></div><h4>Bard / Dancer</h4><div class="sub">Archer 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-heart-pulse"></i><img class="job-sprite" src="assets/chars/priest.gif" alt="Priest" loading="lazy" onerror="this.remove()"></div><h4>Priest</h4><div class="sub">Acolyte 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-hand-fist"></i><img class="job-sprite" src="assets/chars/monk.gif" alt="Monk" loading="lazy" onerror="this.remove()"></div><h4>Monk</h4><div class="sub">Acolyte 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-mask"></i><img class="job-sprite" src="assets/chars/assassin.gif" alt="Assassin" loading="lazy" onerror="this.remove()"></div><h4>Assassin</h4><div class="sub">Thief 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-user-secret"></i><img class="job-sprite" src="assets/chars/rogue.gif" alt="Rogue" loading="lazy" onerror="this.remove()"></div><h4>Rogue</h4><div class="sub">Thief 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-screwdriver-wrench"></i><img class="job-sprite" src="assets/chars/blacksmith.gif" alt="Blacksmith" loading="lazy" onerror="this.remove()"></div><h4>Blacksmith</h4><div class="sub">Merchant 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-flask"></i><img class="job-sprite" src="assets/chars/alchemist.gif" alt="Alchemist" loading="lazy" onerror="this.remove()"></div><h4>Alchemist</h4><div class="sub">Merchant 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-baby"></i><img class="job-sprite" src="assets/chars/supernovice.gif" alt="Super Novice" loading="lazy" onerror="this.remove()"></div><h4>Super Novice</h4><div class="sub">Special</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MVP BOSSES ============ -->
+<section class="mvp" id="mvp">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">MVP Hunt</span>
+      <h2>บอส <span>MVP</span> ในตำนาน</h2>
+      <p>บอส MVP ทุกตัว spawn ตามต้นฉบับ Pre-Renewal — รวมปาร์ตี้ล่าการ์ด MVP หายาก ของดรอประดับเทพ</p>
+    </div>
+
+    <div class="mvp-grid">
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/baphomet.png" alt="Baphomet" loading="lazy"></div><h4>Baphomet</h4><div class="mvp-sub">Lv 81 · Demon</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/lordofdeath.png" alt="Lord of Death" loading="lazy"></div><h4>Lord of Death</h4><div class="mvp-sub">Lv 86 · Demon</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/darklord.png" alt="Dark Lord" loading="lazy"></div><h4>Dark Lord</h4><div class="mvp-sub">Lv 71 · Undead</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/maya.png" alt="Maya" loading="lazy"></div><h4>Maya</h4><div class="mvp-sub">Lv 65 · Insect</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/phreeoni.png" alt="Phreeoni" loading="lazy"></div><h4>Phreeoni</h4><div class="mvp-sub">Lv 60 · Brute</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">EP 5.0</span><div class="mvp-stage"><img src="assets/monsters/kiel.png" alt="Kiel D-01" loading="lazy"></div><h4>Kiel D-01</h4><div class="mvp-sub">Lv 90 · Demi-Human</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/amonra.png" alt="Amon Ra" loading="lazy"></div><h4>Amon Ra</h4><div class="mvp-sub">Lv 88 · Demi-Human</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/eddga.png" alt="Eddga" loading="lazy"></div><h4>Eddga</h4><div class="mvp-sub">Lv 65 · Brute</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/osiris.png" alt="Osiris" loading="lazy"></div><h4>Osiris</h4><div class="mvp-sub">Lv 78 · Undead</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/doppelganger.png" alt="Doppelganger" loading="lazy"></div><h4>Doppelganger</h4><div class="mvp-sub">Lv 77 · Demon</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/moonlight.png" alt="Moonlight Flower" loading="lazy"></div><h4>Moonlight</h4><div class="mvp-sub">Lv 67 · Demon</div></div>
+      <div class="mvp-card boss"><span class="mvp-badge">MVP</span><div class="mvp-stage"><img src="assets/monsters/drake.png" alt="Drake" loading="lazy"></div><h4>Drake</h4><div class="mvp-sub">Lv 75 · Undead</div></div>
     </div>
   </div>
 </section>
