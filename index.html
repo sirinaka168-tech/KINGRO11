@@ -500,18 +500,36 @@
     box-shadow: var(--shadow-gold);
   }
   .class-card .class-ico {
-    width: 56px;
-    height: 56px;
+    position: relative;
+    width: 84px;
+    height: 84px;
     margin: 0 auto 12px;
-    background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark));
+    background: radial-gradient(circle at 50% 35%, var(--accent-gold-light), var(--accent-gold-dark));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 24px;
-    box-shadow: 0 4px 12px -4px var(--accent-gold);
+    font-size: 30px;
+    box-shadow: 0 4px 12px -4px var(--accent-gold), inset 0 2px 6px rgba(255,255,255,0.4);
+    overflow: hidden;
   }
+  .class-card:hover .class-ico { box-shadow: 0 8px 20px -4px var(--accent-gold), inset 0 2px 6px rgba(255,255,255,0.4); }
+  /* RO character sprite — sits on top of the icon; if the file is missing,
+     onerror hides it and the gold icon underneath shows through. */
+  .class-card .job-sprite {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    padding: 6px;
+    image-rendering: pixelated;          /* keep RO sprites crisp */
+    filter: drop-shadow(0 3px 4px rgba(58,42,26,0.35));
+    transition: transform 0.25s;
+  }
+  .class-card:hover .job-sprite { transform: scale(1.12) translateY(-2px); }
   .class-card h4 {
     font-family: 'Cinzel', serif;
     font-size: 15px;
@@ -524,6 +542,111 @@
     color: var(--text-muted);
     letter-spacing: 1px;
     text-transform: uppercase;
+  }
+
+  /* ============ CHARACTER SHOWCASE ============ */
+  .showcase { background: var(--bg-cream); position: relative; overflow: hidden; }
+  .showcase::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(201,160,74,0.18), transparent 65%);
+    pointer-events: none;
+  }
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 22px;
+  }
+  .hero-char {
+    position: relative;
+    background: linear-gradient(180deg, var(--bg-paper) 0%, var(--bg-cream-2) 100%);
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+    padding: 24px 20px 22px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.28s;
+    overflow: hidden;
+  }
+  .hero-char::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-red), var(--accent-gold));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .hero-char:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-gold);
+    border-color: var(--accent-gold);
+  }
+  .hero-char:hover::after { transform: scaleX(1); }
+  .hero-char .portrait {
+    position: relative;
+    width: 150px;
+    height: 170px;
+    margin: 0 auto 16px;
+    border-radius: 14px;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(232,200,120,0.55), transparent 70%),
+      linear-gradient(180deg, #fff8eb 0%, #ead6b8 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    box-shadow: inset 0 3px 10px rgba(58,42,26,0.12);
+    overflow: hidden;
+  }
+  /* big character art; falls back to the watermark icon when missing */
+  .hero-char .portrait img {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 6px 8px rgba(58,42,26,0.4));
+    transition: transform 0.3s;
+  }
+  .hero-char:hover .portrait img { transform: scale(1.08) translateY(-4px); }
+  .hero-char .portrait .ph-ico {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+    color: var(--accent-gold-dark);
+    opacity: 0.45;
+  }
+  .hero-char .role-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+    padding: 3px 12px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .hero-char .role-tag.red { background: linear-gradient(135deg, #c0392b, var(--accent-red)); }
+  .hero-char h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .hero-char p {
+    font-size: 12.5px;
+    color: var(--text-soft);
+    line-height: 1.55;
   }
 
   /* ============ NEWS ============ */
@@ -697,6 +820,7 @@
     <div class="nav-links" id="navLinks">
       <a href="#home">หน้าแรก</a>
       <a href="#features">เซิร์ฟเวอร์</a>
+      <a href="#heroes">ตัวละคร</a>
       <a href="#classes">อาชีพ</a>
       <a href="#news">ข่าวสาร</a>
       <a href="#download">ดาวน์โหลด</a>
@@ -833,6 +957,59 @@
   </div>
 </section>
 
+<!-- ============ CHARACTER SHOWCASE ============ -->
+<section class="showcase" id="heroes">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Heroes of Midgard</span>
+      <h2>ตัวละคร<span>ในตำนาน</span></h2>
+      <p>เหล่าฮีโร่จากยุค Episode 5.0 — เลือกเส้นทางของคุณ ตั้งแต่อัศวินผู้กล้าจนถึงจอมเวทแห่ง Yuno</p>
+    </div>
+
+    <div class="showcase-grid">
+      <div class="hero-char">
+        <div class="portrait">
+          <span class="ph-ico"><i class="fa-solid fa-shield-halved"></i></span>
+          <img src="assets/chars/showcase-knight.png" alt="Lord Knight" loading="lazy" onerror="this.remove()">
+        </div>
+        <span class="role-tag">Tank · Melee</span>
+        <h4>Lord Knight</h4>
+        <p>แนวหน้าของปาร์ตี้ ถือหอกทะลวงบอส MVP ด้วย Bowling Bash &amp; Spiral Pierce</p>
+      </div>
+
+      <div class="hero-char">
+        <div class="portrait">
+          <span class="ph-ico"><i class="fa-solid fa-hat-wizard"></i></span>
+          <img src="assets/chars/showcase-wizard.png" alt="High Wizard" loading="lazy" onerror="this.remove()">
+        </div>
+        <span class="role-tag red">Magic · DPS</span>
+        <h4>High Wizard</h4>
+        <p>จอมเวทสายทำลายล้าง Storm Gust &amp; Meteor Storm เคลียร์ฝูงมอนได้ทั้งจอ</p>
+      </div>
+
+      <div class="hero-char">
+        <div class="portrait">
+          <span class="ph-ico"><i class="fa-solid fa-staff-snake"></i></span>
+          <img src="assets/chars/showcase-priest.png" alt="High Priest" loading="lazy" onerror="this.remove()">
+        </div>
+        <span class="role-tag">Support · Heal</span>
+        <h4>High Priest</h4>
+        <p>หัวใจของปาร์ตี้ Heal · Assumptio · Sanctuary — ขาดไม่ได้ทุกการล่า MVP</p>
+      </div>
+
+      <div class="hero-char">
+        <div class="portrait">
+          <span class="ph-ico"><i class="fa-solid fa-khanda"></i></span>
+          <img src="assets/chars/showcase-assassin.png" alt="Assassin Cross" loading="lazy" onerror="this.remove()">
+        </div>
+        <span class="role-tag red">Burst · Crit</span>
+        <h4>Assassin Cross</h4>
+        <p>นักลอบสังหารกริชคู่ Sonic Blow &amp; Soul Breaker — เปิดตัวแรงในสนาม WoE</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CLASSES ============ -->
 <section class="classes" id="classes">
   <div class="container">
@@ -843,19 +1020,19 @@
     </div>
 
     <div class="class-grid">
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-shield"></i></div><h4>Knight</h4><div class="sub">Swordman 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-cross"></i></div><h4>Crusader</h4><div class="sub">Swordman 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-fire"></i></div><h4>Wizard</h4><div class="sub">Mage 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-bolt"></i></div><h4>Sage</h4><div class="sub">Mage 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-feather"></i></div><h4>Hunter</h4><div class="sub">Archer 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-music"></i></div><h4>Bard / Dancer</h4><div class="sub">Archer 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-heart-pulse"></i></div><h4>Priest</h4><div class="sub">Acolyte 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-hand-fist"></i></div><h4>Monk</h4><div class="sub">Acolyte 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-mask"></i></div><h4>Assassin</h4><div class="sub">Thief 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-user-secret"></i></div><h4>Rogue</h4><div class="sub">Thief 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-screwdriver-wrench"></i></div><h4>Blacksmith</h4><div class="sub">Merchant 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-flask"></i></div><h4>Alchemist</h4><div class="sub">Merchant 2nd</div></div>
-      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-baby"></i></div><h4>Super Novice</h4><div class="sub">Special</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-shield"></i><img class="job-sprite" src="assets/chars/knight.png" alt="Knight" loading="lazy" onerror="this.remove()"></div><h4>Knight</h4><div class="sub">Swordman 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-cross"></i><img class="job-sprite" src="assets/chars/crusader.png" alt="Crusader" loading="lazy" onerror="this.remove()"></div><h4>Crusader</h4><div class="sub">Swordman 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-fire"></i><img class="job-sprite" src="assets/chars/wizard.png" alt="Wizard" loading="lazy" onerror="this.remove()"></div><h4>Wizard</h4><div class="sub">Mage 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-bolt"></i><img class="job-sprite" src="assets/chars/sage.png" alt="Sage" loading="lazy" onerror="this.remove()"></div><h4>Sage</h4><div class="sub">Mage 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-feather"></i><img class="job-sprite" src="assets/chars/hunter.png" alt="Hunter" loading="lazy" onerror="this.remove()"></div><h4>Hunter</h4><div class="sub">Archer 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-music"></i><img class="job-sprite" src="assets/chars/bard.png" alt="Bard / Dancer" loading="lazy" onerror="this.remove()"></div><h4>Bard / Dancer</h4><div class="sub">Archer 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-heart-pulse"></i><img class="job-sprite" src="assets/chars/priest.png" alt="Priest" loading="lazy" onerror="this.remove()"></div><h4>Priest</h4><div class="sub">Acolyte 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-hand-fist"></i><img class="job-sprite" src="assets/chars/monk.png" alt="Monk" loading="lazy" onerror="this.remove()"></div><h4>Monk</h4><div class="sub">Acolyte 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-mask"></i><img class="job-sprite" src="assets/chars/assassin.png" alt="Assassin" loading="lazy" onerror="this.remove()"></div><h4>Assassin</h4><div class="sub">Thief 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-user-secret"></i><img class="job-sprite" src="assets/chars/rogue.png" alt="Rogue" loading="lazy" onerror="this.remove()"></div><h4>Rogue</h4><div class="sub">Thief 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-screwdriver-wrench"></i><img class="job-sprite" src="assets/chars/blacksmith.png" alt="Blacksmith" loading="lazy" onerror="this.remove()"></div><h4>Blacksmith</h4><div class="sub">Merchant 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-flask"></i><img class="job-sprite" src="assets/chars/alchemist.png" alt="Alchemist" loading="lazy" onerror="this.remove()"></div><h4>Alchemist</h4><div class="sub">Merchant 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-baby"></i><img class="job-sprite" src="assets/chars/supernovice.png" alt="Super Novice" loading="lazy" onerror="this.remove()"></div><h4>Super Novice</h4><div class="sub">Special</div></div>
     </div>
   </div>
 </section>
