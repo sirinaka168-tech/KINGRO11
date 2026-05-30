@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>《RO-King 5.0》— Ragnarok Online Episode 5.0 — Classic Pre-Renewal</title>
+<meta name="description" content="RO-King 5.0 — Ragnarok Online Episode 5.0 Classic เซิร์ฟเวอร์ส่วนตัวคลาสสิค Lv 99/50 เปิดใหม่เล่นกับเพื่อน ๆ" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="《RO-King 5.0》— Ragnarok Online Episode 5.0 Classic" />
+<meta property="og:description" content="RO Episode 5.0 Pre-Renewal คลาสสิค 99/50 — เปิดใหม่เล่นกับเพื่อน ๆ บรรยากาศแบบยุคทอง" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --bg-cream: #f5e6d3;
+    --bg-cream-2: #ead6b8;
+    --bg-paper: #fff8eb;
+    --bg-card: #ffffff;
+    --accent-gold: #c9a04a;
+    --accent-gold-dark: #a07a2e;
+    --accent-gold-light: #e8c878;
+    --accent-red: #b03030;
+    --accent-red-dark: #821818;
+    --text: #3a2a1a;
+    --text-soft: #6b5a47;
+    --text-muted: #9a8975;
+    --border: rgba(160,122,46,0.25);
+    --border-strong: rgba(160,122,46,0.5);
+    --shadow-soft: 0 8px 30px -10px rgba(58,42,26,0.2);
+    --shadow-gold: 0 10px 30px -8px rgba(201,160,74,0.5);
+  }
+
+  body {
+    font-family: 'Prompt', sans-serif;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,160,74,0.18), transparent 60%),
+      radial-gradient(ellipse at bottom left, rgba(176,48,48,0.08), transparent 60%),
+      var(--bg-cream);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a { color: var(--accent-gold-dark); text-decoration: none; }
+  a:hover { color: var(--accent-red); }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .serif { font-family: 'Cinzel', serif; }
+
+  /* ============ TOP NAV ============ */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(245,230,211,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topnav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+  }
+  .brand {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand span { color: var(--accent-red); }
+  .brand .ico-crown {
+    color: var(--accent-gold);
+    font-size: 20px;
+    filter: drop-shadow(0 2px 4px rgba(201,160,74,0.5));
+  }
+  .nav-links {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent-gold);
+    transition: width 0.25s;
+  }
+  .nav-links a:hover { color: var(--accent-red); }
+  .nav-links a:hover::after { width: 100%; }
+  .hamburger { display: none; font-size: 22px; color: var(--text); cursor: pointer; background: none; border: none; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    padding: 70px 0 90px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(201,160,74,0.2) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero .container { position: relative; z-index: 1; }
+
+  .episode-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+    color: #fff;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-gold);
+    margin-bottom: 24px;
+  }
+  .episode-badge i { font-size: 12px; }
+
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.95;
+    color: var(--text);
+    margin-bottom: 14px;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 20px rgba(58,42,26,0.1);
+    animation: titleSway 6s ease-in-out infinite;
+    transform-origin: 50% 100%;
+  }
+  .hero-title .king {
+    background: linear-gradient(180deg, #d4a544 0%, #a07a2e 50%, #d4a544 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(201,160,74,0.3));
+  }
+  .hero-title .ro {
+    color: var(--accent-red);
+  }
+  @keyframes titleSway {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-1.5deg); }
+    75% { transform: rotate(1.5deg); }
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+    color: var(--text-soft);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .hero-tagline {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    color: var(--accent-red);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  /* Hero CTA buttons */
+  .hero-ctas {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+  }
+  .cta-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, #d4a544, #a07a2e);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: var(--shadow-gold), inset 0 1px 0 rgba(255,255,255,0.3);
+    transition: all 0.25s;
+    border: 2px solid rgba(255,255,255,0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    overflow: hidden;
+    min-width: 180px;
+    justify-content: center;
+  }
+  .cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px -8px rgba(201,160,74,0.7), inset 0 1px 0 rgba(255,255,255,0.3);
+    color: #fff;
+  }
+  .cta-btn:hover::before { transform: translateX(100%); }
+  .cta-btn.red {
+    background: linear-gradient(135deg, #c0392b, #821818);
+    box-shadow: 0 10px 30px -8px rgba(176,48,48,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .cta-btn.red:hover {
+    box-shadow: 0 16px 40px -8px rgba(176,48,48,0.7), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .cta-btn.outline {
+    background: var(--bg-paper);
+    color: var(--text);
+    text-shadow: none;
+    border-color: var(--accent-gold-dark);
+    box-shadow: 0 6px 16px -6px rgba(58,42,26,0.2);
+  }
+  .cta-btn.outline:hover {
+    background: var(--accent-gold);
+    color: #fff;
+    border-color: var(--accent-gold);
+  }
+  .cta-btn i { font-size: 18px; }
+
+  /* Quick stats */
+  .quick-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .quick-stat {
+    background: var(--bg-paper);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 12px;
+    box-shadow: var(--shadow-soft);
+  }
+  .quick-stat .v {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent-red);
+    line-height: 1;
+  }
+  .quick-stat .l {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+  .quick-stat .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+    margin-right: 4px;
+    vertical-align: middle;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ============ SECTIONS ============ */
+  section { padding: 70px 0; position: relative; }
+  .section-head {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 48px;
+  }
+  .section-head .eyebrow {
+    display: inline-block;
+    color: var(--accent-red);
+    font-size: 12px;
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-head h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+  .section-head h2 span { color: var(--accent-gold-dark); }
+  .section-head p {
+    color: var(--text-soft);
+    font-size: 15px;
+  }
+
+  /* ============ FEATURES ============ */
+  .features { background: linear-gradient(180deg, transparent 0%, var(--bg-cream-2) 100%); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 24px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -12px rgba(58,42,26,0.25);
+  }
+  .card:hover::before { transform: scaleX(1); }
+  .card .ico {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold));
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 16px -6px var(--accent-gold);
+  }
+  .card .ico.red {
+    background: linear-gradient(135deg, #d04040, var(--accent-red));
+    box-shadow: 0 6px 16px -6px var(--accent-red);
+  }
+  .card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .card p {
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .card .price {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent-red);
+    margin: 8px 0;
+  }
+  .card .price small { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+  /* ============ EPISODE INFO ============ */
+  .ep-info { background: var(--bg-cream); }
+  .ep-info .info-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .ep-info .info-text h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .ep-info .info-text h2 span { color: var(--accent-gold-dark); }
+  .ep-info .info-text p {
+    color: var(--text-soft);
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+  .info-points {
+    list-style: none;
+    margin-top: 20px;
+  }
+  .info-points li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+    color: var(--text);
+    font-size: 14px;
+  }
+  .info-points li:last-child { border-bottom: none; }
+  .info-points li i {
+    color: var(--accent-gold-dark);
+    font-size: 14px;
+    width: 16px;
+    margin-top: 4px;
+  }
+  .info-points li strong { color: var(--accent-red); }
+
+  .info-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .info-stat {
+    background: var(--bg-paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+  }
+  .info-stat .num {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(180deg, var(--accent-gold), var(--accent-gold-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .info-stat .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .info-stat i {
+    font-size: 24px;
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+  }
+
+  /* ============ CLASSES ============ */
+  .classes { background: linear-gradient(180deg, var(--bg-cream-2) 0%, var(--bg-cream) 100%); }
+  .class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .class-card {
+    background: var(--bg-paper);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 18px;
+    text-align: center;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-soft);
+  }
+  .class-card:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-gold);
+  }
+  .class-card .class-ico {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 12px;
+    background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+    box-shadow: 0 4px 12px -4px var(--accent-gold);
+  }
+  .class-card h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .class-card .sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ============ NEWS ============ */
+  .news { background: var(--bg-cream); }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .news-card {
+    background: var(--bg-card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.25s;
+    border: 1px solid var(--border);
+  }
+  .news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -10px rgba(58,42,26,0.25);
+  }
+  .news-img {
+    height: 160px;
+    background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .news-img i { font-size: 56px; opacity: 0.4; }
+  .news-img .tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .news-body { padding: 22px; }
+  .news-body .date {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .news-body h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .news-body p {
+    font-size: 13px;
+    color: var(--text-soft);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .news-body .more {
+    color: var(--accent-red);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .news-body .more:hover { color: var(--accent-gold-dark); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: linear-gradient(180deg, var(--bg-cream-2), #c9b08a);
+    padding: 50px 0 24px;
+    border-top: 3px solid var(--accent-gold);
+    color: var(--text);
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 32px;
+  }
+  .foot-brand .brand { margin-bottom: 14px; }
+  .foot-brand p {
+    color: var(--text-soft);
+    font-size: 13px;
+    max-width: 360px;
+    line-height: 1.7;
+  }
+  .foot-col h5 {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .foot-col ul { list-style: none; }
+  .foot-col li { margin-bottom: 6px; }
+  .foot-col a {
+    color: var(--text-soft);
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .foot-col a:hover { color: var(--accent-red); padding-left: 4px; }
+  .socials { display: flex; gap: 10px; margin-top: 14px; }
+  .socials a {
+    width: 38px; height: 38px;
+    background: var(--bg-paper);
+    color: var(--text);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s;
+    border: 1px solid var(--border);
+  }
+  .socials a:hover {
+    background: var(--accent-red);
+    color: #fff;
+    border-color: var(--accent-red);
+    transform: translateY(-2px);
+  }
+  .foot-bottom {
+    padding-top: 22px;
+    border-top: 1px solid var(--border-strong);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    .topnav .container { padding: 12px 18px; }
+    .nav-links { display: none; }
+    .hamburger { display: inline-flex; }
+    .nav-links.mobile-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 60px; left: 0; right: 0;
+      background: var(--bg-paper);
+      padding: 20px;
+      gap: 14px;
+      box-shadow: var(--shadow-soft);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero { padding: 50px 0 60px; }
+    .hero-ctas .cta-btn { width: 100%; max-width: 280px; }
+    .quick-stats { grid-template-columns: repeat(2, 1fr); }
+    .ep-info .info-row { grid-template-columns: 1fr; gap: 30px; }
+    section { padding: 50px 0; }
+    .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP NAV ============ -->
+<nav class="topnav">
+  <div class="container">
+    <a href="#home" class="brand">
+      <i class="fa-solid fa-crown ico-crown"></i>
+      RO-<span>King</span> 5.0
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">หน้าแรก</a>
+      <a href="#features">เซิร์ฟเวอร์</a>
+      <a href="#classes">อาชีพ</a>
+      <a href="#news">ข่าวสาร</a>
+      <a href="#download">ดาวน์โหลด</a>
+      <a href="#donate">โดเนท</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="เมนู"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="episode-badge">
+      <i class="fa-solid fa-star"></i> Ragnarok Online · Episode 5.0
+    </div>
+
+    <h1 class="hero-title">
+      <span class="ro">RO</span>-<span class="king">King</span> 5.0
+    </h1>
+    <div class="hero-tagline">— Classic Pre-Renewal —</div>
+    <p class="hero-subtitle">เซิร์ฟเวอร์เรกนาร็อกออนไลน์คลาสสิค กลับมาสนุกอีกครั้งกับเพื่อน ๆ ในยุคทอง</p>
+
+    <div class="hero-ctas">
+      <a href="#register" class="cta-btn"><i class="fa-solid fa-play"></i> เข้าเล่นเกม</a>
+      <a href="#register" class="cta-btn red"><i class="fa-solid fa-user-plus"></i> สมัครสมาชิก</a>
+      <a href="#download" class="cta-btn outline"><i class="fa-solid fa-download"></i> ดาวน์โหลด</a>
+    </div>
+
+    <div class="quick-stats">
+      <div class="quick-stat">
+        <div class="v"><span class="dot"></span>Online</div>
+        <div class="l">Server Status</div>
+      </div>
+      <div class="quick-stat">
+        <div class="v">99 / 50</div>
+        <div class="l">Max Level</div>
+      </div>
+      <div class="quick-stat">
+        <div class="v">5.0</div>
+        <div class="l">Episode</div>
+      </div>
+      <div class="quick-stat">
+        <div class="v">x50</div>
+        <div class="l">EXP / Drop</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Server Features</span>
+      <h2>เซิร์ฟเวอร์<span> Classic 5.0</span></h2>
+      <p>คลาสสิคแบบยุคทอง Pre-Renewal ปรับ rate ให้เหมาะกับการเล่นในกลุ่มเพื่อน ไม่กดหนัก ไม่มี pay-to-win</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ico"><i class="fa-solid fa-chart-line"></i></div>
+        <h3>Mid-Rate x50</h3>
+        <p>EXP / JOB / Drop x50 · Card x5 · MVP Card x1 — เลเวลเร็วพอ แต่ของหายากยังคุ้มล่า</p>
+      </div>
+      <div class="card">
+        <div class="ico red"><i class="fa-solid fa-khanda"></i></div>
+        <h3>WoE Friday / Sunday</h3>
+        <p>War of Emperium ปราสาทยึดได้ทุกอาทิตย์ — ศุกร์-อาทิตย์ 21:00-22:00 ปราสาท Yesnelph, Mersetzdeitz, Swanhild, Fadhgridh</p>
+      </div>
+      <div class="card">
+        <div class="ico"><i class="fa-solid fa-dragon"></i></div>
+        <h3>MVP Hunt</h3>
+        <p>บอส MVP ทุกตัว spawn ตามต้นฉบับ — Eddga, Phreeoni, Doppelganger, Maya, Mistress MVPs ครบ</p>
+      </div>
+      <div class="card">
+        <div class="ico red"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Anti-Bot</h3>
+        <p>ระบบ captcha + GM watch — ไม่ทน bot / dual-client เกินกำหนด</p>
+      </div>
+      <div class="card">
+        <div class="ico"><i class="fa-solid fa-gift"></i></div>
+        <h3>Starter Pack ฟรี</h3>
+        <p>ตัวใหม่รับ Novice Pack: Knife, Apple x100, Fly Wing x50, Starter Headgear</p>
+      </div>
+      <div class="card">
+        <div class="ico"><i class="fa-solid fa-people-group"></i></div>
+        <h3>Small Community</h3>
+        <p>เซิร์ฟเล็ก ๆ เน้นเล่นกับเพื่อน ๆ ปาร์ตี้ฟาร์ม MVP / ทำกิจกรรม — มี Discord คุยกัน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EPISODE INFO ============ -->
+<section class="ep-info">
+  <div class="container">
+    <div class="info-row">
+      <div class="info-text">
+        <span class="episode-badge"><i class="fa-solid fa-book"></i> Episode 5.0</span>
+        <h2>Yuno &amp; the <span>Schwarzwald</span></h2>
+        <p>Episode 5.0 พาผู้เล่นไปสำรวจ <strong>Schwarzwald Republic</strong> — เมืองวิทยาการ <strong>Yuno</strong>, ดันเจียน Juperos ที่เต็มไปด้วยหุ่นยนต์โบราณ, และระบบ <strong>Marriage</strong> สมรสในเกมครั้งแรก</p>
+        <ul class="info-points">
+          <li><i class="fa-solid fa-check"></i> <strong>Yuno</strong> — เมืองวิทยาการแห่ง Schwarzwald</li>
+          <li><i class="fa-solid fa-check"></i> <strong>Juperos</strong> — ดันเจียนโบราณเครื่องจักรขั้นเทพ</li>
+          <li><i class="fa-solid fa-check"></i> <strong>Einbroch / Einbech</strong> — เมืองเหมืองและอุตสาหกรรม</li>
+          <li><i class="fa-solid fa-check"></i> <strong>Marriage System</strong> — แต่งงานในเกมครั้งแรกของ RO</li>
+          <li><i class="fa-solid fa-check"></i> <strong>Kiel Hyre</strong> — บอสและตำนานหุ่นยนต์</li>
+        </ul>
+      </div>
+
+      <div class="info-stats">
+        <div class="info-stat">
+          <i class="fa-solid fa-arrow-up-9-1"></i>
+          <div class="num">99 / 50</div>
+          <div class="label">Max Level</div>
+        </div>
+        <div class="info-stat">
+          <i class="fa-solid fa-bolt"></i>
+          <div class="num">x50</div>
+          <div class="label">EXP Rate</div>
+        </div>
+        <div class="info-stat">
+          <i class="fa-solid fa-gem"></i>
+          <div class="num">x50</div>
+          <div class="label">Drop Rate</div>
+        </div>
+        <div class="info-stat">
+          <i class="fa-solid fa-user-group"></i>
+          <div class="num">100</div>
+          <div class="label">Max Players</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLASSES ============ -->
+<section class="classes" id="classes">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">All 13 Jobs</span>
+      <h2>อาชีพ<span>ทั้งหมด</span></h2>
+      <p>13 อาชีพคลาสสิคจาก Pre-Renewal Episode 5.0 — เลือกสไตล์การเล่นที่ใช่</p>
+    </div>
+
+    <div class="class-grid">
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-shield"></i></div><h4>Knight</h4><div class="sub">Swordman 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-cross"></i></div><h4>Crusader</h4><div class="sub">Swordman 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-fire"></i></div><h4>Wizard</h4><div class="sub">Mage 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-bolt"></i></div><h4>Sage</h4><div class="sub">Mage 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-feather"></i></div><h4>Hunter</h4><div class="sub">Archer 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-music"></i></div><h4>Bard / Dancer</h4><div class="sub">Archer 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-heart-pulse"></i></div><h4>Priest</h4><div class="sub">Acolyte 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-hand-fist"></i></div><h4>Monk</h4><div class="sub">Acolyte 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-mask"></i></div><h4>Assassin</h4><div class="sub">Thief 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-user-secret"></i></div><h4>Rogue</h4><div class="sub">Thief 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-screwdriver-wrench"></i></div><h4>Blacksmith</h4><div class="sub">Merchant 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-flask"></i></div><h4>Alchemist</h4><div class="sub">Merchant 2nd</div></div>
+      <div class="class-card"><div class="class-ico"><i class="fa-solid fa-baby"></i></div><h4>Super Novice</h4><div class="sub">Special</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWS ============ -->
+<section class="news" id="news">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">News &amp; Events</span>
+      <h2>ข่าวสาร <span>&amp; กิจกรรม</span></h2>
+      <p>ติดตามอัพเดท, อีเวนต์ และโปรโมชั่นล่าสุดจาก RO-King 5.0</p>
+    </div>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-img"><span class="tag">Launch</span><i class="fa-solid fa-rocket"></i></div>
+        <div class="news-body">
+          <div class="date">เร็ว ๆ นี้</div>
+          <h4>เปิดเซิร์ฟวันแรก!</h4>
+          <p>RO-King 5.0 พร้อมเปิดให้บริการแล้ว — รายละเอียดเวลาเปิด + Launch event เร็ว ๆ นี้</p>
+          <a href="#" class="more">รายละเอียดเพิ่มเติม →</a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img"><span class="tag">Event</span><i class="fa-solid fa-gift"></i></div>
+        <div class="news-body">
+          <div class="date">Launch Week</div>
+          <h4>EXP x2 สัปดาห์แรก</h4>
+          <p>สัปดาห์แรกหลังเปิดเซิร์ฟ EXP x100 (จาก x50) ช่วยให้เพื่อน ๆ ตามทันกัน</p>
+          <a href="#" class="more">รายละเอียดเพิ่มเติม →</a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img"><span class="tag">CBT</span><i class="fa-solid fa-flask"></i></div>
+        <div class="news-body">
+          <div class="date">ก่อน Launch</div>
+          <h4>Closed Beta Test</h4>
+          <p>รับสมัครเพื่อน ๆ 10 คนเข้าทดสอบเซิร์ฟ 7 วัน — ทดสอบ feedback ก่อนเปิดจริง</p>
+          <a href="#" class="more">สมัคร CBT →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOWNLOAD ============ -->
+<section id="download" style="background:var(--bg-cream-2);">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Download</span>
+      <h2>ดาวน์โหลด<span> Client</span></h2>
+      <p>ดาวน์โหลด client RO-King 5.0 — รองรับ Windows 10/11 (64-bit)</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ico"><i class="fa-solid fa-cube"></i></div>
+        <h3>Full Client</h3>
+        <p>kRO + Patch RO-King 5.0 ในกล่องเดียว — สำหรับติดตั้งครั้งแรก</p>
+        <div class="price">~2.5 GB</div>
+        <a href="#" class="cta-btn" style="width:100%; margin-top:10px;"><i class="fa-solid fa-download"></i> ดาวน์โหลด</a>
+      </div>
+      <div class="card">
+        <div class="ico red"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+        <h3>Patcher Only</h3>
+        <p>มี kRO อยู่แล้ว ใช้ patcher อัพเดทเป็นเวอร์ชันล่าสุด</p>
+        <div class="price">~50 MB</div>
+        <a href="#" class="cta-btn outline" style="width:100%; margin-top:10px;"><i class="fa-solid fa-arrow-up-from-bracket"></i> Patcher</a>
+      </div>
+      <div class="card">
+        <div class="ico"><i class="fa-solid fa-book"></i></div>
+        <h3>คู่มือเริ่มเล่น</h3>
+        <p>ขั้นตอนติดตั้ง + สมัครสมาชิก + ตั้งค่าเกม ครั้งแรก step-by-step</p>
+        <a href="#" class="cta-btn outline" style="width:100%; margin-top:30px;"><i class="fa-solid fa-file-lines"></i> อ่านคู่มือ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DONATE ============ -->
+<section id="donate">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Donation</span>
+      <h2>สนับสนุน<span>เซิร์ฟเวอร์</span></h2>
+      <p>โดเนทเพื่อช่วยจ่ายค่า VPS / domain — ของในร้านเป็น cosmetic + convenience ไม่มี pay-to-win</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ico"><i class="fa-solid fa-mobile-screen"></i></div>
+        <h3>PromptPay</h3>
+        <p>โอน QR PromptPay → ส่งสลิปใน Discord → รับ Cash ใน 5 นาที</p>
+      </div>
+      <div class="card">
+        <div class="ico"><i class="fa-solid fa-wallet"></i></div>
+        <h3>TrueWallet</h3>
+        <p>ส่งซองอั่งเปา → ระบบเติมอัตโนมัติ 24/7</p>
+      </div>
+      <div class="card">
+        <div class="ico red"><i class="fa-solid fa-heart"></i></div>
+        <h3>Founder Pack</h3>
+        <p>แพ็คผู้สนับสนุนแรก — VIP frame, exclusive headgear, +20% EXP buff ตลอดชีวิต</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#home" class="brand">
+          <i class="fa-solid fa-crown ico-crown"></i>
+          RO-<span>King</span> 5.0
+        </a>
+        <p>เซิร์ฟเวอร์ Ragnarok Online ส่วนตัว Episode 5.0 Pre-Renewal Classic — เปิดเล่นกับเพื่อน ๆ ในกลุ่มเล็ก ๆ ไม่ใช่เซิร์ฟพาณิชย์</p>
+        <div class="socials">
+          <a href="#" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h5>เซิร์ฟเวอร์</h5>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#classes">อาชีพ</a></li>
+          <li><a href="#news">ข่าวสาร</a></li>
+          <li><a href="#">Rules &amp; ToS</a></li>
+          <li><a href="#">Guide WoE</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>เริ่มเล่น</h5>
+        <ul>
+          <li><a href="#">สมัครสมาชิก</a></li>
+          <li><a href="#download">ดาวน์โหลด</a></li>
+          <li><a href="#">คู่มือเริ่มเล่น</a></li>
+          <li><a href="#donate">โดเนท</a></li>
+          <li><a href="#">Discord Community</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      © 2026 RO-King 5.0 — Private Server (Fan Project) ·
+      ไม่ได้สังกัด Gravity / Asiasoft · เพื่อการศึกษาและเล่นในกลุ่มเพื่อนเท่านั้น
+    </div>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('mobile-open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('mobile-open')));
+</script>
+
+</body>
+</html>
