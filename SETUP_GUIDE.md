@@ -2,6 +2,10 @@
 
 คู่มือเปิดเซิร์ฟ Ragnarok Online Episode 5.0 ด้วย **rAthena** สำหรับเล่นกับเพื่อน 5-30 คน
 
+> ⚡ **เริ่มจากศูนย์? แนะนำวิธี Docker (ง่ายกว่ามาก)** — ไม่ต้องลง Visual Studio / ตั้ง DB เอง
+> 👉 ดู **[server/START_HERE.md](server/START_HERE.md)**
+> คู่มือด้านล่างนี้เป็นวิธี **compile เองด้วย Visual Studio** (ทางเลือกขั้นสูง)
+
 ---
 
 ## ภาพรวม

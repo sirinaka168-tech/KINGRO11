@@ -1,0 +1,29 @@
+// =====================================================================
+//  RO-King 5.0 — Mid-Rate x50 (Pre-Renewal / Episode 5.0 Classic)
+//  COPY THIS FILE INTO:  <rathena>/conf/import/battle_conf.txt
+//  Restart the map-server after any change (stop.bat -> 2-start.bat).
+// =====================================================================
+
+// ---- EXP rates (100 = x1, 5000 = x50) ----
+base_exp_rate: 5000
+job_exp_rate: 5000
+quest_exp_rate: 5000
+mvp_exp_rate: 5000
+
+// ---- Drop rates ----
+item_rate_common: 5000        // normal item drops (x50)
+item_rate_heal: 5000          // healing items
+item_rate_use: 5000           // usable items
+item_rate_equip: 5000         // equipment
+item_rate_card: 500           // normal cards (x5 — keep cards rare-ish)
+item_rate_card_boss: 100      // MVP cards (x1 — stays prestigious)
+item_rate_mvp: 5000           // MVP-exclusive drops
+item_rate_treasure: 5000      // treasure box drops
+
+// ---- Classic 99/50 feel ----
+// (Pre-Renewal max levels come from db/pre-re/exp.txt by default — no change needed)
+max_aspd: 190
+
+// ---- Quality of life for a small friends server ----
+// uncomment if you want everyone to start with @commands etc.
+//atcommand_max_aspd: 199
